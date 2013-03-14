@@ -20,7 +20,7 @@ namespace Cleeck
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Text = HTTPRequest.connect();
+            label1.Text = HTTPConnector.connect();
         }
     }
 }

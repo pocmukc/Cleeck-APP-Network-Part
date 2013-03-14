@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Cleeck.sockets
 {
-    class HTTPRequest
+    class HTTPConnector
     {
         public static string connect(){
             string server = "90.188.1.11";
