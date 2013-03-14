@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Cleeck.sockets;
+
 
 namespace Cleeck
 {
@@ -14,6 +16,11 @@ namespace Cleeck
         public Cleeck()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Text = HTTPRequest.connect();
         }
     }
 }

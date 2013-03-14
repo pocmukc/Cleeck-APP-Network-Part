@@ -9,7 +9,7 @@ namespace Cleeck.sockets
 {
     class HTTPRequest
     {
-        public string connect(){
+        public static string connect(){
             string server = "90.188.1.11";
             string port = "35555";
             string uri = "/broker?region=1&type=0";
