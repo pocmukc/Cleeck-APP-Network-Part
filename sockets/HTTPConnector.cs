@@ -97,7 +97,6 @@ namespace Cleeck.sockets
 #endif
             }
             return result;
-            
         }
     }
 }
