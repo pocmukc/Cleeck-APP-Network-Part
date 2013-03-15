@@ -9,8 +9,8 @@ namespace Cleeck.sockets
 {
     enum TypeOfConnect
     {
-        Other,  // 0
-        Mobile  // 1
+        Mobile,  // 0
+        HTTP  // 1
     }
 
     class HTTPConnector
@@ -47,14 +47,14 @@ namespace Cleeck.sockets
         {
             _host = "90.188.1.11";
             _port = 35555;
-            _type = TypeOfConnect.Other;
+            _type = TypeOfConnect.Mobile;
         }
 #endif
         public HTTPConnector(string host, uint port)
         {
             _host = host;
             _port = port;
-            _type = TypeOfConnect.Other;
+            _type = TypeOfConnect.Mobile;
         }
 
         public HTTPConnector(
