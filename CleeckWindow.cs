@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Cleeck.sockets;
+using System.Threading.Tasks;
 
 
 namespace Cleeck
@@ -20,8 +21,19 @@ namespace Cleeck
 
         private void button1_Click(object sender, EventArgs e)
         {
-            HTTPConnector connector = new HTTPConnector();
-            label1.Text = connector.request();
+            Task task = new Task(() =>
+                {
+                    HTTPConnector connector = new HTTPConnector();
+                    try
+                    {
+                        connector.request();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+                });
+            task.Start();
         }
     }
 }
