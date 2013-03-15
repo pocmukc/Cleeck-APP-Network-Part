@@ -21,20 +21,8 @@ namespace Cleeck
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Task<string> task = new Task<string>(() =>
-                {
-                    HTTPConnector connector = new HTTPConnector();
-                    string res = "";
-                    try
-                    {
-                        res = connector.request();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                    }
-                    return res;
-                });
+            HTTPConnector connector = new HTTPConnector();
+            Task<string> task = new Task<string>(() => connector.request());
             task.Start();
             label1.Text = task.Result;
         }
