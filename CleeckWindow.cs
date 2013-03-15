@@ -11,8 +11,17 @@ using Cleeck.sockets;
 
 namespace Cleeck
 {
+    class MessageManager
+    {
+        public string msg;
+        public void update(string val)
+        {
+
+        }
+    }
     public partial class Cleeck : Form
     {
+
         public Cleeck()
         {
             InitializeComponent();
@@ -21,7 +30,13 @@ namespace Cleeck
         private void button1_Click(object sender, EventArgs e)
         {
             HTTPConnector connector = new HTTPConnector();
-            label1.Text = connector.request();
+            connector.msg = new MessageManager(){
+                public void update(string msg)
+                {
+                    label1.Text = msg;
+                }
+            }
+            connector.request();
         }
     }
 }

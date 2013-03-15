@@ -73,6 +73,8 @@ namespace Cleeck.sockets
 
         #endregion
 
+        public MessageManager msg;
+
         public string request(){
             string uri = "/broker?region=1&type="+(int)type;
             WebRequest request = WebRequest.Create(
