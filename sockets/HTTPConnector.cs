@@ -7,21 +7,97 @@ using System.IO;
 
 namespace Cleeck.sockets
 {
+    enum TypeOfConnect
+    {
+        Other,  // 0
+        Mobile  // 1
+    }
+
     class HTTPConnector
     {
-        public static string connect(){
-            string server = "90.188.1.11";
-            string port = "35555";
-            string uri = "/broker?region=1&type=0";
+
+        #region Переменные
+
+        private string _host;
+        private uint _port;
+        private TypeOfConnect _type;
+
+        public string host
+        {
+            get { return _host; }
+        }
+
+        public uint port 
+        {
+            get { return _port; }
+        }
+
+        public TypeOfConnect type
+        {
+            get { return _type; }
+        }
+
+        #endregion
+
+        #region Конструкторы
+
+#if DEBUG
+        //Конструктор по умолчанию (для отладки)
+        public HTTPConnector()
+        {
+            _host = "90.188.1.11";
+            _port = 35555;
+            _type = TypeOfConnect.Other;
+        }
+#endif
+        public HTTPConnector(string host, uint port)
+        {
+            _host = host;
+            _port = port;
+            _type = TypeOfConnect.Other;
+        }
+
+        public HTTPConnector(
+                string host, 
+                uint port, 
+                TypeOfConnect type
+            )
+        {
+            _host = host;
+            _port = port;
+            _type = type;
+        }
+
+        //копирование запрещено
+        private HTTPConnector(HTTPConnector con){}
+
+        #endregion
+
+        public string request(){
+            string uri = "/broker?region=1&type="+(int)type;
             WebRequest request = WebRequest.Create(
                 "http://"+
-                server + ":" +
+                host + ":" +
                 port +
                 uri);
             request.Method = "GET";
-            WebResponse response = request.GetResponse();
-            StreamReader sr = new StreamReader(response.GetResponseStream());
-            return sr.ReadToEnd();
+            string result = "";
+            try
+            {
+                WebResponse response = request.GetResponse();
+                StreamReader sr = new StreamReader(response.GetResponseStream());
+                result = sr.ReadToEnd();
+            }
+            catch (Exception e)
+            {
+#if DEBUG
+                System.Windows.Forms.MessageBox.Show(e.ToString());
+#else
+                System.Windows.Forms.MessageBox.Show("Ошибка подключения к сокету");
+#endif
+            }
+            return result;
+            
         }
     }
 }
