@@ -21,7 +21,11 @@ namespace Cleeck
 
         private void button1_Click(object sender, EventArgs e)
         {
-            HTTPConnector connector = new HTTPConnector();
+            HTTPConnector connector = new HTTPConnector(
+                "90.188.1.11",
+                35555,
+                TypeOfConnect.Mobile
+                );
             Task<string> task = new Task<string>(() => connector.request());
             task.Start();
             label1.Text = task.Result;
