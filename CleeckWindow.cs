@@ -26,9 +26,7 @@ namespace Cleeck
                 35555,
                 TypeOfConnect.Mobile
                 );
-            Task<string> task = new Task<string>(() => connector.request());
-            task.Start();
-            label1.Text = task.Result;
+            label1.Text = connector.request();
         }
     }
 }

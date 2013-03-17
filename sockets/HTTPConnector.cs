@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Cleeck.sockets
 {
@@ -81,22 +82,28 @@ namespace Cleeck.sockets
                 port +
                 uri);
             request.Method = "GET";
-            string result = "";
-            try
+            Task<string> task = new Task<string>(()=>
             {
-                WebResponse response = request.GetResponse();
-                StreamReader sr = new StreamReader(response.GetResponseStream());
-                result = sr.ReadToEnd();
+                string result = "";
+                try
+                {
+                    WebResponse response = request.GetResponse();
+                    StreamReader sr = new StreamReader(response.GetResponseStream());
+                    result = sr.ReadToEnd();
+                }
+                catch (Exception e)
+                {
+    #if DEBUG
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+    #else
+                    System.Windows.Forms.MessageBox.Show("Ошибка подключения к сокету");
+    #endif
+                }
+                return result;
             }
-            catch (Exception e)
-            {
-#if DEBUG
-                System.Windows.Forms.MessageBox.Show(e.ToString());
-#else
-                System.Windows.Forms.MessageBox.Show("Ошибка подключения к сокету");
-#endif
-            }
-            return result;
+            );
+            task.Start();
+            return task.Result;
         }
     }
 }
