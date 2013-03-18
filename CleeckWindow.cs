@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Cleeck.sockets;
 using System.Threading.Tasks;
-
+using Cleeck.Data;
 
 namespace Cleeck
 {
@@ -26,7 +26,15 @@ namespace Cleeck
                 35555,
                 TypeOfConnect.Mobile
                 );
-            label1.Text = connector.request();
+            string res = connector.request();
+            label1.Text = res;
+            //JSONParser jsn = new JSONParser();
+            //Dictionary<string, string> dict = jsn.parse(res);
+            //JSONSocket sock = new JSONSocket(dict["ip"], dict["port"]);
+            //sock.connect();
+            //string auth = "{auth, 156165, \"asdfsgdf\", \"asdfg\"}";
+            //{auth, 1234, anonymous}
+            //MessageBox.Show(sock.Send(auth));
         }
     }
 }
